@@ -1,16 +1,13 @@
 package com.example.weatherInfo.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -101,6 +98,7 @@ public class WeatherServiceTest {
         Assertions.assertEquals(weatherInfomock.getPincode(), weatherInfo.getPincode());
         Assertions.assertEquals(weatherInfomock.getDate(), weatherInfo.getDate());
         Assertions.assertEquals(weatherInfomock.getPlace(), weatherInfo.getPlace());
-
+        Mockito.verify(weatherInfoRepository).findByPincodeAndDate(411014, LocalDate.parse("2020-10-15"));
+        Mockito.verifyNoMoreInteractions(weatherInfoRepository);
     }
 }
