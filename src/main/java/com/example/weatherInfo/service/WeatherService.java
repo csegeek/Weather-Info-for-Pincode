@@ -58,9 +58,15 @@ public class WeatherService {
     // optimised method to get weather information;
     public WeatherInfo getWeatherInfo(Integer pincode, LocalDate date) throws Exception {
 
+
+        Optional<WeatherInfo> optionalWeatherInfo=this.weatherInfoRepository.findByPincodeAndDate(pincode, date);
+        //check if data is already present in database 
+        if(optionalWeatherInfo.isPresent()) return optionalWeatherInfo.get();
+       
         double latitude;
         double longitude;
         // Check if the latitude and longitude are already saved in the database
+
         Optional<PincodeLocation> optionalPincodeLocation = null;
         try {
             optionalPincodeLocation = this.pincodeLocationRepository.findById(pincode);

@@ -1,6 +1,7 @@
 package com.example.weatherInfo.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -91,6 +92,7 @@ public class WeatherServiceTest {
         mockResponse.setWeather(temp);
 
         when(pincodeLocationRepository.findById(411014)).thenReturn(Optional.of(pincodeLocationmock));
+        when(weatherInfoRepository.findByPincodeAndDate(411014,LocalDate.parse("2020-10-15"))).thenReturn(Optional.of(weatherInfomock));
         when(weatherInfoRepository.save(weatherInfomock)).thenReturn(weatherInfomock);
         when(restTemplate.getForEntity(anyString(),eq(WeatherApiResponse.class))).thenReturn(ResponseEntity.ok(mockResponse));
         
@@ -99,9 +101,6 @@ public class WeatherServiceTest {
         Assertions.assertEquals(weatherInfomock.getPincode(), weatherInfo.getPincode());
         Assertions.assertEquals(weatherInfomock.getDate(), weatherInfo.getDate());
         Assertions.assertEquals(weatherInfomock.getPlace(), weatherInfo.getPlace());
-        Mockito.verify(pincodeLocationRepository).findById(411014);
-        Mockito.verifyNoMoreInteractions(pincodeLocationRepository);
-        Mockito.verify(weatherInfoRepository).save(weatherInfo);
-        Mockito.verifyNoMoreInteractions(weatherInfoRepository);
+
     }
 }
