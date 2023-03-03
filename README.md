@@ -34,3 +34,4 @@ OpenWeather GeoCoding API (https://openweathermap.org/api/geocoding-api).
 4. Mysql
 5. Junit5 and Mockito(Unit Testing)
 6. REST API
+7. RestTemplate
